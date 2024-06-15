@@ -1,4 +1,3 @@
-package com.example.ql_nhansu.repository;
 
 import com.example.ql_nhansu.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;

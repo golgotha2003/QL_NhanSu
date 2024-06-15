@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +11,10 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<section layout:fragment="content">
 <div class="container mt-4">
     <h2 class="mb-4">THÔNG TIN NHÂN VIÊN</h2>
-    <button class="btn btn-success mb-4"><a th:href="@{/nhanvien/add}">THÊM NHÂN VIÊN</a></button>
+    <button class="btn btn-success mb-4 float-right"><a th:href="@{/nhanvien/add}" style="color: black">THÊM NHÂN VIÊN</a></button>
     <table class="table table-bordered table-hover">
         <thead class="thead-light">
         <tr>
@@ -28,20 +32,23 @@
             <td th:text="${nhanVien.ma_NV}"></td>
             <td th:text="${nhanVien.ten_NV}"></td>
             <td>
-                <span th:if="${nhanVien.phai == 'Nữ'}"><img src="/female.png" alt="Nữ"></span>
-                <span th:if="${nhanVien.phai == 'Nam'}"><img src="/male.png" alt="Nam"></span>
+                <span th:if="${nhanVien.phai == 'Nữ'}"><img src="/female.png" alt="Nữ" style="width: 50px; height: auto"></span>
+                <span th:if="${nhanVien.phai == 'Nam'}"><img src="/male.png" alt="Nam" style="width: 50px; height: auto"></span>
             </td>
             <td th:text="${nhanVien.noi_Sinh}"></td>
             <td th:text="${nhanVien.phong_Ban.ten_Phong}"></td>
             <td th:text="${nhanVien.luong}"></td>
             <td class="actions">
-                <a th:href="@{/nhanvien/update/{id}(id=${nhanVien.ma_NV})}"><img src="/edit.png" alt="Edit"></a>
-                <a th:href="@{/nhanvien/delete/{id}(id=${nhanVien.ma_NV})}"><img src="/delete.png" alt="Delete"></a>
+                <div sec:authorize="hasAuthority('ADMIN')">
+                    <a th:href="@{/nhanvien/update/{id}(id=${nhanVien.ma_NV})}"><img src="/edit.png" alt="Edit" style="width: 50px; height: auto"></a>
+                    <a th:href="@{/nhanvien/delete/{id}(id=${nhanVien.ma_NV})}"><img src="/delete.png" alt="Delete" style="width: 50px; height: auto"></a>
+                </div>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
+</section>
 
 <!-- Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

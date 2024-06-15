@@ -1,10 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm Nhân Viên</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<section layout:fragment="content"><div class="container mt-4">
+    <h2 class="mb-4">Thêm Nhân Viên</h2>
+    <form th:action="@{/nhanvien/add}" th:object="${nhanvien}" method="post">
+        <div class="form-group">
+            <label for="Ma_NV">Mã Nhân Viên</label>
+            <input type="text" class="form-control" id="Ma_NV" th:field="*{ma_NV}" placeholder="Nhập mã nhân viên" maxlength="3" required>
+        </div>
+        <div class="form-group">
+            <label for="Ten_NV">Tên Nhân Viên</label>
+            <input type="text" class="form-control" id="Ten_NV" th:field="*{ten_NV}" placeholder="Nhập tên nhân viên" maxlength="100" required>
+        </div>
+        <div class="form-group">
+            <label for="Phai">Giới tính</label>
+            <select class="form-control" id="Phai" th:field="*{phai}">
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Noi_Sinh">Nơi Sinh</label>
+            <input type="text" class="form-control" id="Noi_Sinh" th:field="*{noi_Sinh}" placeholder="Nhập nơi sinh" maxlength="200">
+        </div>
+        <div class="form-group">
+            <label for="Phong_Ban">Phòng Ban</label>
+            <select class="form-control" id="Phong_Ban" th:field="*{phong_Ban}">
+                <option th:each="phongBan : ${phongban}" th:value="${phongBan.ma_Phong}" th:text="${phongBan.ten_Phong}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Luong">Lương</label>
+            <input type="number" class="form-control" id="Luong" th:field="*{luong}" placeholder="Nhập lương" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Thêm Nhân Viên</button>
+        <a class="btn btn-dark float-right" th:href="@{/nhanvien}">Trở về</a>
+    </form>
+</div>
+</section>
 
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
